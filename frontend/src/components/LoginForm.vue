@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <img src="/assets/img/groupomania-logo.png" alt="Groupomania logo">
+       
         <nav><router-link to="/" class="active">Se connecter</router-link> | <router-link to="/signup">S'inscrire</router-link></nav>
         <form>
 
