@@ -12,11 +12,9 @@
                 <input id="newPost-title" type="text" placeholder="Titre du post" required>
 
                 <label for="newPost-content">Contenu</label>
-                
-               
+                 
                     <textarea id="newPost-content" placeholder="Contenu du post"></textarea>
                 
-
                 <button id="newPost-btn" type="submit" >Publier</button>
 
             </form>

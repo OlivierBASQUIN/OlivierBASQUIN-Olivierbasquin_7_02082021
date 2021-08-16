@@ -22,7 +22,6 @@ export default {
     .profile-info{
         margin: 50px auto;
         max-width: 800px;
-        /* text-align: left; */
     }
 
     .profile-info h2 {
@@ -35,7 +34,7 @@ export default {
     }
 
     .delete-profile{
-      color: red;
+      color: blue;
       margin-bottom: 30px;
       font-size: 24px;
       cursor: pointer;
