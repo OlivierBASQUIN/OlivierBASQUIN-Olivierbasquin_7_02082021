@@ -1,28 +1,31 @@
 <template>
     <div class="wrapper">
-        <img src="/assets/img/icon-left-font-monochrome-black.png" alt="Groupomania logo">
-        <nav><router-link to="/" class="active">Connexion</router-link> <br/><br/>
-        <router-link to="/signup">Inscription</router-link></nav>
-        <form @submit.prevent = login()>
-
-            <label for="login-email">Email :</label>
-            <input id="login-email" type="text" placeholder="Email" required>
+        <form @submit.prevent = signup()>
+            <img src="/assets/img/icon-left-font-monochrome-black.png" alt="Groupomania logo">
+            <nav><router-link to="/">Connexion</router-link><br/><br/>
+            <router-link to="/signup" class="active">Incription</router-link></nav>
+            <label for="signup-nom">Nom :</label>
+            <input id="signup-nom" type="text" placeholder="Nom" required>
             
-            <label for="login-password">Mot de passe :</label>
-            <input id="login-password" type="password" placeholder="Mot de passe" required>
+            <label for="signup-prenom">Prenom :</label>
+            <input id="signup-prenom" type="text" placeholder="Prenom" required>
+
+            <label for="signup-password">Mot de passe :</label>
+            <input id="signup-password" type="password" placeholder="Mot de passe" required>
+
+            <label for="signup-email">Email :</label>
+            <input id="signup-email" type="email" placeholder="Email" required>
 
             <div class="error-message">{{message}}</div>
 
-            <button id="login-btn" type="submit">Connexion</button>
-
-            
+            <button id="signup-btn" type="submit">S'inscrire</button>
         </form>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'LoginForm',
+    name: 'SignupForm',
 }
 </script>
 
@@ -61,9 +64,10 @@ export default {
         padding: 10px;
         margin-bottom: 15px;
         text-align: left;
+ 
     }
 
-    #login-btn{
+    #signup-btn{
         padding: 10px;
         font-size: 1.1rem;
         color: white;
@@ -74,12 +78,8 @@ export default {
         cursor: pointer;
     }
 
-    #login-btn:hover{
+    #signup-btn:hover{
         transform: scale(1.025);
-    }
-
-    .error-message{
-        background-color: rgba(255, 0, 0, 0.301);
     }
 
     label{
