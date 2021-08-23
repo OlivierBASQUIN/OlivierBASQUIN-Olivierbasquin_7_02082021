@@ -2,7 +2,7 @@
     <div class="UserProfile">
         <div class="profile-info">
             <h2>Bonjour,</h2>
-            <span>BASQUIN</span> <span>Olivier</span>
+            <span>{{this.$user.nom}}</span> <span>{{this.$user.prenom}}</span>
         </div>
 
         <div class="delete-profile" @click="deleteUser()">Supprimer le compte</div>
@@ -12,8 +12,30 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'UserProfile',
+
+
+  methods: {
+
+    deleteUser(){
+      const userId = this.$user.userId;
+
+      axios.delete(`${this.$apiUrl}/auth/${userId}`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.$token}`
+            }
+          }
+      )
+      .then(localStorage.removeItem('user'))
+      .then(location.href = "/");
+    }
+
+  }
 }
 </script>
 

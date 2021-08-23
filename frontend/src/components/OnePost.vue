@@ -1,31 +1,107 @@
 <template>
     <div class="onePost">
-        <div class="post-wrapper">
-            <h2 class="post-title">Meilleur Post du monde</h2>
-            <div class="post-content">c'est un super post</div>
+        <div class="post-wrapper" v-if="!modify">
+            <h2 class="post-title">{{this.post.title}}</h2>
+            <div class="post-content" v-html="this.post.content"></div>
         </div>
 
-        <div class="modify-wrapper">
+        <div class="modify-wrapper" v-if="modify">
             <label for="modify-title">Modifier le titre :</label>
-            <input type="text" id="modify-title" placeholder= "Titre du post">
+            <input type="text" id="modify-title" v-model="this.post.title">
 
             <label for="modify-content">Modifier le contenu :</label>
             
-                <textarea id="modify-content" placeholder="Contenu du post"></textarea>
+                <textarea id="modify-content" v-model="this.post.content"></textarea>
         
         </div>
 
-        <button>Modifier</button>
-        <button>Annuler</button>
-        <button>Valider les modifications</button>
-        <button>Supprimer</button>
+        <button v-if="authorized && !modify" @click="modify = true">Modifier</button>
+        <button v-if="modify" @click="modify = false">Annuler</button>
+        <button v-if="modify" @click="modifyOnePost()">Publier les modifications</button>
+        <button v-if="modify" class="delete-btn" @click="deleteOnePost()">Supprimer le post</button>
     </div>
     
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'OnePost',
+
+    data(){
+        return{
+            modifiedContent: '',
+            post: [],
+            authorized: false,
+            modify: false
+        }
+    },
+
+    mounted(){
+        this.getOnePost();
+    },
+
+    methods: {
+        getOnePost(){
+            const postId = this.$route.params.id;
+            
+            axios.get(`${this.$apiUrl}/posts/${postId}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(res => {
+                this.post = res.data[0];
+
+                if(this.$user.userId === this.post.userId || this.$user.admin == 1){
+                    this.authorized = true;
+                 }
+
+                else{
+                    this.authorized = false;
+                }
+            })
+        },
+
+        deleteOnePost(){
+            const postId = this.$route.params.id;
+            
+            axios.delete(`${this.$apiUrl}/posts/${postId}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(location.href = "/");
+        },
+
+        modifyOnePost(){
+            const postId = this.$route.params.id;
+            const title = document.querySelector('#modify-title').value;
+            const content = this.modifiedContent;
+            
+            axios.put(`${this.$apiUrl}/posts/${postId}`,
+                {
+                    postId,
+                    title,
+                    content
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(location.href = "/");
+        },
+    }
 }
 </script>
 

@@ -1,9 +1,11 @@
 <template>
   <div class="post">
-    <LoginForm/>
-    <Header/>
-    <OnePost/>
-    <Comments/>
+    <LoginForm v-if="!connected"/>
+
+    <Header v-if="connected"/>
+    <OnePost v-if="connected"/>
+
+    <Comments v-if="connected"/>
   </div>
 </template>
 
@@ -24,5 +26,29 @@ export default {
     OnePost,
     Comments
   },
+
+  data() {
+    return{
+      connected: true,
+      authorized: true
+    };
+  },
+
+  methods: {
+    checkConnected(){
+      if(localStorage.user !== undefined){
+        this.connected = true;
+        console.log('Utilisateur connecté !');
+      }
+      else if(localStorage.user == undefined){
+        this.connected = false;
+        console.log('Utilisateur non connecté !');
+      }
+    }
+  },
+
+  created(){
+    this.checkConnected()
+  }
 }
 </script>

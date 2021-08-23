@@ -1,11 +1,11 @@
 <template>
     <div class="Profile">
-        <LoginForm v-if="connected"/>
+        <LoginForm v-if="!connected"/>
 
-        <Header v-if="!connected"/>
+        <Header v-if="connected"/>
 
-        <UserProfile v-if="!connected"/>
-        <UserPosts v-if="!connected"/>
+        <UserProfile v-if="connected"/>
+        <UserPosts v-if="connected"/>
         
     </div>
 </template>
@@ -26,6 +26,29 @@ export default {
         UserProfile,
         UserPosts
   },
+
+  data() {
+    return{
+      connected: true
+    };
+  },
+
+   created(){
+    this.checkConnected()
+  },
+
+  methods: {
+    checkConnected(){
+      if(localStorage.user !== undefined){
+        this.connected = true;
+        console.log('Utilisateur connecté !');
+      }
+      else if(localStorage.user == undefined){
+        this.connected = false;
+        console.log('Utilisateur non connecté !');
+      }
+    },
+  }
 }
 </script>
 

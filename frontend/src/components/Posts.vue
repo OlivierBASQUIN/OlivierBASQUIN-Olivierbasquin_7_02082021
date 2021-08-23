@@ -1,19 +1,77 @@
 <template>
     <div class="posts">
-        <article >
+        <article class="post" v-for = "post in posts" :key="post.id">
+            <router-link :to="{ name: 'Post', params: { id: post.id } }">
                 <div class="post-header">
-                    <span class="post-info">Posté par BASQUIN Olivier le 16/08/2021 </span>
-                    <span class="post-modify">Modifier</span> 
+                    <span class="post-info">Posté le {{dateFormat(post.date)}} par {{post.prenom}} {{post.nom}}</span>
+                    <span class="post-modify" v-if="post.userId == $user.userId || $user.admin == 1">Modifier</span> 
                 </div>  
-                <h2 class="post-title"> post</h2>
-                <div class="post-content">Voici mon post</div>
+                <h2 class="post-title">{{post.title}}</h2>
+                <div class="post-content" v-html="characterLimit(post.content)"></div>
+            </router-link>
         </article>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'Posts',
+
+    data(){
+        return {
+            posts: [],
+            visible: false
+        }
+    },
+
+    mounted() {
+        if(localStorage.user != undefined){
+            this.getAllPost();
+        }
+
+        //Export de la fonction
+        this.$root.$on('Posts', () => {
+            this.getAllPost();
+        });
+    },
+
+    methods: {
+        getAllPost(){
+            axios.get(`${this.$apiUrl}/posts/`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(res => {
+                this.posts = res.data;
+            })
+        },
+
+        characterLimit(content){
+            let text = content;
+            const maxLength = 350;
+
+            if(text.length > maxLength){
+                return text.substring(0, maxLength - 3) + "...";
+            }
+            else{
+                return text;
+            }
+        },
+
+        dateFormat(date){
+            const event = new Date(date);
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+
+            return event.toLocaleDateString('fr-FR', options);
+        }
+    }
 }
 </script>
 

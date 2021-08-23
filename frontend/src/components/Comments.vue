@@ -1,21 +1,20 @@
 <template>
   <div class="Comments">
       
-        <form>
+        <form @submit.prevent= newComment()>
             <label for="new-comment">Laisser un commentaire :</label>
-            <textarea name="newComment" id="new-comment" placeholder="Laisser un commentaire" required></textarea>
+            <textarea name="newComment" id="new-comment" placeholder="Laisser un commentaire..." required></textarea>
             <button type="submit" id="send-comment">Envoyer</button>
         </form>
 
-        <h2>Commentaires :</h2>
+        <h2 v-if="comments.length > 0">Commentaires :</h2>
 
         <div class="comments">
-            <div class="comment">
-            <div>
-                <span class="comment-info">Posté par BASQUIN Olivier le 16/08/2021 </span>
-                <span>Supprimer</span>
+            <div class="comment" v-for="comment in comments" :key="comment.id">
+            <div class="comment-info">Par {{comment.prenom}} {{comment.nom}} le {{dateFormat(comment.date)}} 
+                <span @click="deleteComment(comment.id)" v-if="comment.userId == $user.userId || $user.admin == 1" :key="comment.id">Supprimer</span>
             </div>
-           Quel beau post :)
+            {{comment.content}}
             </div>
         </div>
         
@@ -23,8 +22,79 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     names: 'Comments',
+
+    data(){
+        return{
+            comments: []
+        }
+    },
+
+    mounted(){
+        this.getAllComments();
+    },
+
+    methods: {
+        newComment(){
+            const postId = parseInt(this.$route.params.id);
+            const userId = this.$user.userId;
+            const content = document.getElementById('new-comment').value;
+
+            axios.post(`${this.$apiUrl}/posts/${postId}/comment/`,
+                {
+                    userId,
+                    content
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(this.getAllComments());
+        },
+
+        getAllComments(){
+            const postId = parseInt(this.$route.params.id);
+
+            axios.get(`${this.$apiUrl}/posts/${postId}/comments`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(res => {
+                this.comments = res.data;
+            });
+        },
+
+        deleteComment(commentId){
+            axios.delete(`${this.$apiUrl}/posts/comment/${commentId}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(this.getAllComments());
+        },
+
+        dateFormat(date){
+            const event = new Date(date);
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+
+            return event.toLocaleDateString('fr-FR', options);
+        }
+
+    }
 }
 </script>
 
@@ -63,7 +133,6 @@ export default {
 
     .comment{
         padding: 20px 20px 20px 30px;
-        border-left: 5px solid rgb(43, 42, 42);
         margin-top: 20px;
         box-shadow: 0px 0px 50px -7px rgba(0,0,0,0.1);
         text-align: left;
@@ -80,7 +149,7 @@ export default {
 
     .comment-info span{
         cursor: pointer;
-        color: rgb(255, 0, 0);
+        color: blue;
         font-weight: bold;
     }
 

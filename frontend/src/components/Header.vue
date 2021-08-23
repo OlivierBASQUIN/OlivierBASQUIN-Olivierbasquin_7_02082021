@@ -3,7 +3,7 @@
         <router-link to='/'>
         <h1>
             <img src="/assets/img/icon-left-font-monochrome-black.png" alt="Groupomania logo">
-        </h1>
+         </h1>
         </router-link>
 
         <nav>
@@ -18,6 +18,13 @@
 <script>
 export default {
     name: 'Header',
+
+    methods: {
+        disconnect(){
+            localStorage.removeItem('user');
+            location.href = "/";
+        }
+    }
 }
 </script>
 

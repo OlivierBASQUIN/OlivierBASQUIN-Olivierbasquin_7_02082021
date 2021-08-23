@@ -1,18 +1,48 @@
 <template>
     <div class="UserPost">
-        <div  >
+        <div  v-for= "post in posts" :key="post.id">
+            <router-link :to="{ name: 'Post', params: { id: post.id } }">
                 <div class="post">
-                    Voici mon post!
+                    {{post.title}}
                 </div> 
-            
+            </router-link>
         </div>
 
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'UserPosts',
+
+    data(){
+        return{
+            posts: []
+        }
+    },
+
+    mounted(){
+        this.getUserPosts();
+    },
+
+    methods: {
+        getUserPosts(){
+            const userId = this.$user.userId;
+            
+            axios.get(`${this.$apiUrl}/posts/user${userId}/posts`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(res => this.posts = res.data)
+        }
+    }
+
 }
 </script>
 
@@ -24,7 +54,7 @@ export default {
 
     .post{
         padding: 20px 20px 20px 30px;
-        border-left: 5px solid red;
+        border-left: 5px solid blue;
         margin-top: 20px;
         box-shadow: 0px 0px 50px -7px rgba(0,0,0,0.1);
         text-align: left;

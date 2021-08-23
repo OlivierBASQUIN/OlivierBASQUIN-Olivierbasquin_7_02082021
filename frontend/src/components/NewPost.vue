@@ -1,32 +1,67 @@
 <template>
   <div class="newPost">
-      <div class="newPost-create-btn">Ajouter un nouveau post</div>
+      <div class="newPost-create-btn" @click="visible = true">Ajouter un nouveau post</div>
 
-    
-      <div>
+    <transition name="fade">
+      <div class="overlay" v-if="visible">
           <div class="form-wrapper">
-            <span class="form-close">Fermer</span>
-            <form class="newPost-form">
+            <span class="form-close"  @click="visible = false">Fermer</span>
+            <form class="newPost-form" @submit.prevent="sendNewPost()">
 
                 <label for="newPost-title">Titre</label>
-                <input id="newPost-title" type="text" placeholder="Titre du post" required>
+                <input id="newPost-title" type="text" placeholder="Titre de votre post..." required>
 
                 <label for="newPost-content">Contenu</label>
                  
                     <textarea id="newPost-content" placeholder="Contenu du post"></textarea>
                 
-                <button id="newPost-btn" type="submit" >Publier</button>
+                 <button id="newPost-btn" type="submit" >Publier</button>
 
             </form>
           </div>
       </div>
-  
+    </transition>
+
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'NewPost',
+
+    data(){
+        return{
+            visible: false,
+            content: '',
+        }
+    },
+
+    methods: {
+        sendNewPost(){
+            const title = document.getElementById("newPost-title").value;
+            const content = this.content;
+
+            console.log(content);
+
+            axios.post(`${this.$apiUrl}/posts/`,
+                    {
+                        userId: this.$user.userId,
+                        title,
+                        content
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.$token}`
+                        }
+                    }
+                )
+                .then( this.visible = false)
+                .then(this.$root.$emit('Posts'));
+        }
+    }
 }
 </script>
 
