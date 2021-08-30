@@ -11,6 +11,7 @@ html{
 
 body{
   margin: 0;
+  background-color: rgb(229, 233, 232);
 }
 
 #app {

@@ -2,9 +2,9 @@
   <div class="Comments">
       
         <form @submit.prevent= newComment()>
-            <label for="new-comment">Laisser un commentaire :</label>
-            <textarea name="newComment" id="new-comment" placeholder="Laisser un commentaire..." required></textarea>
-            <button type="submit" id="send-comment">Envoyer</button>
+            <label for="new-comment">Laissez un commentaire :</label>
+            <textarea name="newComment" id="new-comment" placeholder="Laissez un commentaire..." required></textarea>
+            <button type="submit" id="send-comment">Poster</button>
         </form>
 
         <h2 v-if="comments.length > 0">Commentaires :</h2>
@@ -123,7 +123,7 @@ export default {
         padding: 10px;
         font-size: 1.1rem;
         color: white;
-        background-color: rgb(43, 42, 42);
+        background-color: rgb(10, 30, 117);
         border: none;
         border-radius: 10px;
         transition-duration: 0.2s;
@@ -142,7 +142,7 @@ export default {
     .comment-info{
         display: flex;
         justify-content: space-between;
-        color: rgb(0, 0, 0);
+        color: blue;
         font-size: .8rem;
         margin-bottom: 10px;
     }
@@ -156,7 +156,7 @@ export default {
     label{
         font-size: 0.8rem;
         font-weight: bold;
-        color: rgb(109, 109, 109);
+        color: black;
         text-align: left;
         border: 0;
         clip: rect(0 0 0 0);
@@ -164,7 +164,6 @@ export default {
         margin: -1px;
         overflow: hidden;
         padding: 0;
-        position: absolute;
         width: 1px;
     }
 </style>

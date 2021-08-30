@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
         if (req.body.userId && req.body.userId !== userId) {
             throw 'Invalid user ID';
         } else {
-            next(); //Si il est OK on passe au middleware suivant
+            next(); //Si il est juste on passe au middleware suivant
         }
     } catch {
         res.status(401).json({

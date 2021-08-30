@@ -5,13 +5,13 @@
             <nav><router-link to="/">Connexion</router-link><br/><br/>
             <router-link to="/signup" class="active">Incription</router-link></nav><br/><br/>
             <label for="signup-nom">Nom :</label>
-            <input id="signup-nom" type="text" placeholder="Nom" required>
+            <input id="signup-nom" type="text" placeholder="Nom" pattern= "[a-zA-Zéèêöï -]+" required>
             
             <label for="signup-prenom">Prenom :</label>
-            <input id="signup-prenom" type="text" placeholder="Prenom" required>
+            <input id="signup-prenom" type="text" placeholder="Prenom" pattern= "[a-zA-Zéèêöï -]+" required>
 
             <label for="signup-password">Mot de passe :</label>
-            <input id="signup-password" type="password" placeholder="Mot de passe" required>
+            <input id="signup-password" type="password" placeholder="Mot de passe" minlength="8" pattern= "[0-9a-zA-Zéèêöï -+]+" required>
 
             <label for="signup-password-verification">Vérification du mot de passe :</label>
             <input id="signup-password-verification" type="password" placeholder="Entrez une nouvelle fois le mot de passe" required>

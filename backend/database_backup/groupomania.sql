@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : lun. 23 août 2021 à 15:26
--- Version du serveur :  5.7.32
--- Version de PHP : 7.4.16
+-- Généré le : lun. 30 août 2021 à 15:55
+-- Version du serveur : 5.7.34
+-- Version de PHP : 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `comments` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `userid` int(11) UNSIGNED NOT NULL,
-  `postid` int(11) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `userId` int(10) UNSIGNED NOT NULL,
+  `postId` int(10) UNSIGNED NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `content` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -43,11 +43,18 @@ CREATE TABLE `comments` (
 
 CREATE TABLE `posts` (
   `id` int(10) UNSIGNED NOT NULL,
-  `userid` int(10) UNSIGNED NOT NULL,
-  `title` varchar(350) NOT NULL,
+  `userId` int(10) UNSIGNED NOT NULL,
+  `title` varchar(250) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `content` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `posts`
+--
+
+INSERT INTO `posts` (`id`, `userId`, `title`, `date`, `content`) VALUES
+(26, 16, 'tgff', '2021-08-30 17:49:40', '<p>fff</p>');
 
 -- --------------------------------------------------------
 
@@ -57,12 +64,19 @@ CREATE TABLE `posts` (
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
-  `nom` varchar(50) NOT NULL,
-  `prenom` varchar(50) NOT NULL,
+  `nom` varchar(40) NOT NULL,
+  `prenom` varchar(40) NOT NULL,
   `password` varchar(80) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `admin` tinyint(2) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `email` varchar(80) NOT NULL,
+  `admin` tinyint(2) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `nom`, `prenom`, `password`, `email`, `admin`) VALUES
+(16, 'Olivier', 'BASQUIN', '$2b$10$sqjry.C5w.DRGmxAbZ7F6uqiQM5VYPNNQC4gXKSpnaKP0cJtESl8e', 'b2xpdmllci5iYXNxdWluLmlwaG9uZUBnbWFpbC5jb20=', 1);
 
 --
 -- Index pour les tables déchargées
@@ -72,16 +86,16 @@ CREATE TABLE `users` (
 -- Index pour la table `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD KEY `postid_comments` (`postid`) USING BTREE,
-  ADD KEY `userid_comments` (`userid`) USING BTREE;
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ob_postId_comments` (`postId`) USING BTREE,
+  ADD KEY `ob_userId_comments` (`userId`) USING BTREE;
 
 --
 -- Index pour la table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `userid_posts` (`userid`) USING BTREE;
+  ADD KEY `ob_userId_posts` (`userId`) USING BTREE;
 
 --
 -- Index pour la table `users`
@@ -97,19 +111,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Contraintes pour les tables déchargées
@@ -119,14 +133,14 @@ ALTER TABLE `users`
 -- Contraintes pour la table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `postid_comments` FOREIGN KEY (`postid`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `userid_comments` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_postId_comments` FOREIGN KEY (`postId`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_userId_comments` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `posts`
 --
 ALTER TABLE `posts`
-  ADD CONSTRAINT `userid_posts` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_userId_posts` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

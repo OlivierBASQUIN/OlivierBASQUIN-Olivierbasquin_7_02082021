@@ -7,6 +7,9 @@
         </router-link>
 
         <nav>
+             <router-link to='/'>
+        <div>Accueil</div>
+        </router-link>
             <router-link to='/profile'>
                 <div>Mon compte</div>
             </router-link>

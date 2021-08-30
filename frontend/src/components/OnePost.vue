@@ -10,9 +10,26 @@
             <input type="text" id="modify-title" v-model="this.post.title">
 
             <label for="modify-content">Modifier le contenu :</label>
-            
+            <editor 
+                :initialValue="this.post.content"
+                apiKey="5iun9sezv4kibsn6zxsf7v0i3gedfka1yxjb1p4du317qo0u"
+                v-model="modifiedContent"
+                :init="{
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link',
+                    'searchreplace visualblocks code fullscreen',
+                    'print preview anchor insertdatetime media',
+                    'paste code help wordcount table'
+                ],
+                toolbar:
+                    'undo redo | formatselect | bold italic | \
+                    alignleft aligncenter alignright | \
+                    bullist numlist outdent indent | help'
+                }"
+            >
                 <textarea id="modify-content" v-model="this.post.content"></textarea>
-        
+            </editor>
         </div>
 
         <button v-if="authorized && !modify" @click="modify = true">Modifier</button>
@@ -25,9 +42,14 @@
 
 <script>
 import axios from 'axios';
+import Editor from '@tinymce/tinymce-vue';
 
 export default {
     name: 'OnePost',
+
+    components: {
+      editor: Editor
+    },
 
     data(){
         return{
@@ -112,7 +134,8 @@ export default {
         padding: 30px;
         max-width: 800px;
         text-align: left;
-        box-shadow: 0px 0px 50px -7px rgba(0,0,0,0.1);
+        border: 5px solid burlywood;
+        box-shadow: 0px 0px 50px -15px black;
     }
 
     .post-title {
@@ -134,7 +157,7 @@ export default {
         padding: 30px;
         max-width: 800px;
         text-align: left;
-        box-shadow: 0px 0px 50px -7px rgba(0,0,0,0.1);
+        box-shadow: 0px 0px 50px -15px black;
     }
 
     #modify-title {
@@ -167,7 +190,7 @@ export default {
     }
 
     .delete-btn{
-        background-color: red !important;
+        background-color: rgb(202, 9, 9) !important;
     }
 
     label{
@@ -177,11 +200,7 @@ export default {
         text-align: left;
         border: 0;
         clip: rect(0 0 0 0);
-        height: 1px;
         margin: -1px;
-        overflow: hidden;
         padding: 0;
-        position: absolute;
-        width: 1px;
     }
 </style>
