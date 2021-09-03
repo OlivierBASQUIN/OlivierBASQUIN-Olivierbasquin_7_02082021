@@ -133,7 +133,8 @@ export default {
         display: flex;
         flex-direction: column;
         padding: 5%;
-        width: 800px;
+        width: 100%;
+        max-width: 800px;
         height: 80%;
         border-radius: 30px;
     }
