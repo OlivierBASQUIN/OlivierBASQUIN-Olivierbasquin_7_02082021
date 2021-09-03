@@ -6,8 +6,8 @@ Installation de le base de données :
 
 Dans le dossier "backend" créez un fichier ".env" avec les informations suivantes :
 - DB_HOST=localhost
-- DB_USER=<votre user>
-- DB_PASS=<votre mot de passe>
+- DB_USER="votre user"
+- DB_PASS="votre mot de passe"
 - DB_NAME=groupomania
 - TOKEN=JAIMELESFRAMBOISES36
 
