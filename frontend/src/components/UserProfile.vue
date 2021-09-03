@@ -1,7 +1,7 @@
 <template>
     <div class="UserProfile">
         <div class="profile-info">
-            <h2>Titulaire du compte :</h2>
+            <h2>Titulaire du compte:</h2>
             <span>{{this.$user.prenom}} </span> <span>{{this.$user.nom}}</span>
         </div>
 
@@ -41,6 +41,10 @@ export default {
 
 <style scoped>
 
+    .UserProfile{
+       margin-top: -10px;
+    }
+
     .profile-info{
         margin: 50px auto;
         max-width: 800px;
@@ -48,11 +52,11 @@ export default {
 
     .profile-info h2 {
         margin-bottom: 20px;
-        font-size: 3rem;
+        font-size: 1.8rem;
     }
 
     .profile-info span {
-        font-size: 3rem;
+        font-size: 2rem;
     }
 
     .delete-profile{

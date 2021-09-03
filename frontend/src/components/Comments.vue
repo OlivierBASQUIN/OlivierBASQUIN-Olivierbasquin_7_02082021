@@ -103,8 +103,8 @@ export default {
 <style scoped>
     .Comments{
         max-width: 800px;
-        margin: 0 auto;
-        padding: 30px;
+        margin: -30px auto;
+        padding: 10px 30px 150px 30px;
     }
 
     label{

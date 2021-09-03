@@ -49,6 +49,7 @@ export default {
 <style scoped>
     .UserPost{
         margin: 30px auto;
+        padding: 0 0 120px 0;
         max-width: 700px;
     }
 
@@ -56,7 +57,7 @@ export default {
         padding: 20px 20px 20px 30px;
         border: 5px solid burlywood;
         box-shadow: 0px 0px 50px -15px black;
-        margin-top: 20px;
+        margin: 20px;
         text-align: left;
         transition-duration: .1s;
     }

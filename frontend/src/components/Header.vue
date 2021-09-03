@@ -2,14 +2,14 @@
     <div class="header">
         <router-link to='/'>
         <h1>
-            <img src="/assets/img/icon-left-font-monochrome-black.png" alt="Groupomania logo">
+            <img src="/assets/img/icon-left-font-monochrome-black.2.png" alt="Groupomania logo">
          </h1>
         </router-link>
 
         <nav>
              <router-link to='/'>
-        <div>Accueil</div>
-        </router-link>
+                <div>Page d'Accueil</div>
+            </router-link>
             <router-link to='/profile'>
                 <div>Mon compte</div>
             </router-link>
@@ -40,7 +40,6 @@ export default {
     }
 
     .header img{
-        width: 250px;
         height: auto;
     }
 
@@ -49,9 +48,9 @@ export default {
     }
 
     nav div{
-        margin-left: 30px;
         font-weight: bold;
         cursor: pointer;
+        margin: 0px 15px
     }
 
     .fas{
@@ -59,7 +58,8 @@ export default {
     }
 
     nav div:hover{
-        color: rgb(117, 117, 117);
+        color: rgb(90, 88, 88);
+        text-decoration: underline;
     }
 
     @media (max-width: 670px) {

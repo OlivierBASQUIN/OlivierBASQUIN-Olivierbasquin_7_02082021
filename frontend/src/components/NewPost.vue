@@ -95,6 +95,7 @@ export default {
 
     .newPost{
         padding: 20px 20px 0px 20px ;   
+        margin-top: -20px;
     }
 
     .newPost-create-btn{

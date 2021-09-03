@@ -136,6 +136,7 @@ export default {
         text-align: left;
         border: 5px solid burlywood;
         box-shadow: 0px 0px 50px -15px black;
+        overflow: hidden;
     }
 
     .post-title {
@@ -191,6 +192,7 @@ export default {
     }
      .onePost{
        padding: 20px;
+       margin-top: -20px;
     }
 
     .delete-btn{

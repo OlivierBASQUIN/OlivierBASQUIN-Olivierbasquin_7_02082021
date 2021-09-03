@@ -78,7 +78,7 @@ export default {
 <style scoped>
     .posts{
         margin: 0 auto;
-        padding: 20px;
+        padding: 20px 20px 120px 20px;
         max-width: 800px;
     }
 
@@ -90,6 +90,7 @@ export default {
         box-shadow: 0px 0px 50px -15px black;
         text-align: left;
         transition-duration: .1s;
+        overflow: hidden;
     }
 
     .post:hover{

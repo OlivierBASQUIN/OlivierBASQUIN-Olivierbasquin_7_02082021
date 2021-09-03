@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : lun. 30 août 2021 à 15:55
+-- Généré le : ven. 03 sep. 2021 à 15:55
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -49,13 +49,6 @@ CREATE TABLE `posts` (
   `content` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `posts`
---
-
-INSERT INTO `posts` (`id`, `userId`, `title`, `date`, `content`) VALUES
-(26, 16, 'tgff', '2021-08-30 17:49:40', '<p>fff</p>');
-
 -- --------------------------------------------------------
 
 --
@@ -76,7 +69,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nom`, `prenom`, `password`, `email`, `admin`) VALUES
-(16, 'Olivier', 'BASQUIN', '$2b$10$sqjry.C5w.DRGmxAbZ7F6uqiQM5VYPNNQC4gXKSpnaKP0cJtESl8e', 'b2xpdmllci5iYXNxdWluLmlwaG9uZUBnbWFpbC5jb20=', 1);
+(1, 'Administrateur', 'Groupomania', '$2b$10$UGwt9MwxUFO6yxRf8wNYQOXMVNYZL1DUraHNZHxIIHjQB52VRiVj6', 'YWRtaW5pc3RyYXRldXJAYWRtaW5pc3RyYXRldXIuY29t', 1);
 
 --
 -- Index pour les tables déchargées
@@ -111,19 +104,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Contraintes pour les tables déchargées
