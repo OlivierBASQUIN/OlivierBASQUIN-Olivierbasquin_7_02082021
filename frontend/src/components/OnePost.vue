@@ -6,10 +6,10 @@
         </div>
 
         <div class="modify-wrapper" v-if="modify">
-            <label for="modify-title">Modifier le titre :</label>
+            
             <input type="text" id="modify-title" v-model="this.post.title">
 
-            <label for="modify-content">Modifier le contenu :</label>
+            <label for="modify-content">Modifier le contenu :</label><br>
             <editor 
                 :initialValue="this.post.content"
                 apiKey="5iun9sezv4kibsn6zxsf7v0i3gedfka1yxjb1p4du317qo0u"
@@ -165,6 +165,7 @@ export default {
         margin-bottom: 20px;
         color: blue;
         font-size: 2rem;
+        display: none;
     }
 
     #modify-content{
@@ -188,15 +189,18 @@ export default {
         cursor: pointer;
         margin: 0px 20px 50px 20px;
     }
+     .onePost{
+       padding: 20px;
+    }
 
     .delete-btn{
         background-color: rgb(202, 9, 9) !important;
     }
 
     label{
-        font-size: 0.8rem;
+        font-size: 1rem;
         font-weight: bold;
-        color: rgb(109, 109, 109);
+        color: black;
         text-align: left;
         border: 0;
         clip: rect(0 0 0 0);

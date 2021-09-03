@@ -1,8 +1,8 @@
 <template>
     <div class="UserProfile">
         <div class="profile-info">
-            <h2>Bonjour,</h2>
-            <span>{{this.$user.nom}}</span> <span>{{this.$user.prenom}}</span>
+            <h2>Titulaire du compte :</h2>
+            <span>{{this.$user.prenom}} </span> <span>{{this.$user.nom}}</span>
         </div>
 
         <div class="delete-profile" @click="deleteUser()">Supprimer le compte</div>
@@ -60,5 +60,12 @@ export default {
       margin-bottom: 30px;
       font-size: 24px;
       cursor: pointer;
+      width: 250px;
+      margin: auto;
+    }
+     .delete-profile:hover{
+      color: red;
+      transform: scale(1.02);
+      transition-duration: 0.1s;
     }
 </style>

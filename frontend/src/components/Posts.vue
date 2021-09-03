@@ -93,7 +93,7 @@ export default {
     }
 
     .post:hover{
-        box-shadow: 0px 0px 50px -7px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 0px 50px -7px rgba(0, 0, 0, 0.3);
     }
 
     .post h2{
@@ -111,6 +111,7 @@ export default {
         color:blue;
         font-size: 1rem;
         font-weight: bold;
+        margin-left: 8px;
     }
 
     .post-title{

@@ -11,7 +11,7 @@
             <input id="signup-prenom" type="text" placeholder="Prenom" pattern= "[a-zA-Zéèêöï -]+" required>
 
             <label for="signup-password">Mot de passe :</label>
-            <input id="signup-password" type="password" placeholder="Mot de passe" minlength="8" pattern= "[0-9a-zA-Zéèêöï -+]+" required>
+            <input id="signup-password" type="password" placeholder="Mot de passe" pattern= "[0-9a-zA-Zéèêöï -+]+" required>
 
             <label for="signup-password-verification">Vérification du mot de passe :</label>
             <input id="signup-password-verification" type="password" placeholder="Entrez une nouvelle fois le mot de passe" required>
@@ -66,10 +66,14 @@ export default {
                     }
                 })
                 .catch((error) => {
-                    if (error.response.status === 401) {
-                        this.message = "Email non disponible.";
+                    if (error.response.status === 400) {
+                        this.message = "Mot de passe requis : entre 8 et 16 caractères. Au moins 1 Majuscule et 1 chiffre";
                     }  
-                });
+                    {
+                    if (error.response.status === 401) {
+                        this.message = "Un compte a déjà été créé avec cet Email";
+                    }  
+                }});
             }
             else if( password != passwordVerif){
                 this.message = "Vérifier le mot de passe";

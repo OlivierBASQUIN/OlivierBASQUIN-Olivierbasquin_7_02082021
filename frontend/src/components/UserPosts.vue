@@ -49,20 +49,20 @@ export default {
 <style scoped>
     .UserPost{
         margin: 30px auto;
-        max-width: 800px;
+        max-width: 700px;
     }
 
     .post{
         padding: 20px 20px 20px 30px;
-        border-left: 5px solid blue;
+        border: 5px solid burlywood;
+        box-shadow: 0px 0px 50px -15px black;
         margin-top: 20px;
-        box-shadow: 0px 0px 25px -7px rgba(0,0,0,1);
         text-align: left;
         transition-duration: .1s;
     }
 
     .post:hover{
-        box-shadow: 0px 0px 25px -7px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 0px 25px -7px rgba(0, 0, 0, 0.3);
     }
 
 </style>

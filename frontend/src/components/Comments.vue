@@ -4,7 +4,7 @@
         <form @submit.prevent= newComment()>
             <label for="new-comment">Laissez un commentaire :</label>
             <textarea name="newComment" id="new-comment" placeholder="Laissez un commentaire..." required></textarea>
-            <button type="submit" id="send-comment">Poster</button>
+            <button type="submit" id="send-comment">Publier</button>
         </form>
 
         <h2 v-if="comments.length > 0">Commentaires :</h2>
@@ -56,6 +56,7 @@ export default {
                 }
             )
             .then(this.getAllComments());
+            window.location.reload();
         },
 
         getAllComments(){
@@ -84,6 +85,7 @@ export default {
                 }
             )
             .then(this.getAllComments());
+            window.location.reload();
         },
 
         dateFormat(date){
@@ -143,18 +145,19 @@ export default {
         display: flex;
         justify-content: space-between;
         color: blue;
-        font-size: .8rem;
+        font-size: 0.8rem;
         margin-bottom: 10px;
     }
 
     .comment-info span{
         cursor: pointer;
-        color: blue;
+        color: red;
         font-weight: bold;
+        margin-left: 8px;
     }
 
     label{
-        font-size: 0.8rem;
+        font-size: 1rem;
         font-weight: bold;
         color: black;
         text-align: left;

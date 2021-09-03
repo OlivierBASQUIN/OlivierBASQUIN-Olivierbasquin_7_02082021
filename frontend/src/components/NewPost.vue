@@ -84,6 +84,7 @@ export default {
                 )
                 .then( this.visible = false)
                 .then(this.$root.$emit('Posts'));
+                window.location.reload();
         }
     }
 }
