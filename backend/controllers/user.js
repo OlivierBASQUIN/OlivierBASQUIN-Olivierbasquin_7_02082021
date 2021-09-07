@@ -3,25 +3,25 @@ const jwt = require('jsonwebtoken');
 const db = require("../database_connect");
 require('dotenv').config();
 
-//Inscription
+// Inscription
 exports.signup = (req, res, next) => {
-    //Cryptage Email
+    // Cryptage Email
     const buffer = Buffer.from(req.body.email);
     const cryptedEmail = buffer.toString('base64');
-    //Verification email disponible
+    // Verification email disponible
     db.query(`SELECT * FROM users WHERE email='${cryptedEmail}'`,
             (err, results, rows) => {
-                //Si email deja utilisé
+                // Si email deja utilisé
                 if (results.length > 0) {
                     res.status(401).json({
                         message: 'Email non disponible.'
                     });
-                    //Si email disponible
+                    // Si email disponible
                 } else {
-                //Cryptage du MDP
+                // Cryptage du MDP
                 bcrypt.hash(req.body.password, 10)
                 .then(cryptedPassword => {
-                    //Ajout à la BDD
+                    // Ajout à la BDD
                     db.query(`INSERT INTO users VALUES (NULL, '${req.body.nom}', '${req.body.prenom}', '${cryptedPassword}', '${cryptedEmail}', 0)`,
                         (err, results, fields) => {
                             if (err) {
@@ -41,24 +41,24 @@ exports.signup = (req, res, next) => {
             });
 };
 
-//Connexion
+// Connexion
 exports.login = (req, res, next) => {
     const buffer = Buffer.from(req.body.email);
     const cryptedEmail = buffer.toString('base64');
-    //Recherche de l'utilisateur dans la BDD
+    // Recherche de l'utilisateur dans la BDD
     db.query(`SELECT * FROM users WHERE email='${cryptedEmail}'`,
         (err, results, rows) => {
-            //Si utilisateur trouvé : 
+            // Si utilisateur trouvé : 
             if (results.length > 0) {
-                //Verification du MDP
+                // Verification du MDP
                 bcrypt.compare(req.body.password, results[0].password)
                     .then(valid => {
-                        //Si MDP invalide erreur
+                        // Si MDP invalide erreur
                         if (!valid) {
                             res.status(401).json({
                                 message: 'Mot de passe incorrect.'
                             });
-                            //Si MDP valide création d'un token
+                            // Si MDP valide création d'un token
                         } else {
                             res.status(200).json({
                                 userId: results[0].id,

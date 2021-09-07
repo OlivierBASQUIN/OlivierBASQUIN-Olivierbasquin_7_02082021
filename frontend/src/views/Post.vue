@@ -10,7 +10,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+// @ est un alias pour /src
 import LoginForm from '@/components/LoginForm.vue';
 import Header from '@/components/Header.vue';
 import OnePost from '@/components/OnePost.vue';

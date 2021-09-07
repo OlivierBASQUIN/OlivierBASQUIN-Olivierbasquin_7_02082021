@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const helmet = require('helmet'); // couteau suisse ajoutant 11 middlewares de sécurité pour les headers HTTP 
+const helmet = require('helmet'); // Couteau suisse ajoutant 11 middlewares de sécurité pour les headers HTTP 
 // On utilise helmet pour plusieurs raisons notamment la mise en place du X-XSS-Protection afin d'activer le filtre de script intersites(XSS) dans les navigateurs web)
 const cors = require('cors');
-const rateLimit = require('express-rate-limit'); // protection contre les techniques brute force en déterminant un nombre de requêtes maximum sur une période de temps prédéterminée.
+const rateLimit = require('express-rate-limit'); // Protection contre les techniques brute force en déterminant un nombre de requêtes maximum sur une période de temps prédéterminée.
 
-//constante à utiliser avec le package rateLimit
+// Constante à utiliser avec le package rateLimit
 const limiter = rateLimit({         
     windowMs: 15 * 60 * 1000,       // = 15 minutes
     max: 100
@@ -17,7 +17,7 @@ const postRoutes = require('./routes/post');
 
 const app = express();
 
-//CORS
+// CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -25,12 +25,12 @@ app.use((req, res, next) => {
     next();
 });
 
-//Securité et data
+// Securité et data
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(cors());
 
-//Routes
+// Routes
 app.use('/api/auth', userRoutes);
 app.use('/api/posts', postRoutes);
 
